@@ -1,9 +1,9 @@
-# Welcome to {{ team }}
+# Welcome to {{ teamName }}
 
-Hi {{name}},
+Hi {{ userName }},
 
-You've joined the team **{{ team }}**. You can manage your membership by logging to your account.
+You've joined the team **{{ teamName }}**. You can manage your membership by logging to your account.
 
 <a href="{{ link }}" class="btn btn-primary">Visit this team</a>
 
-If you didn't want to be added to {{ team }}, you can log in to your account and leave the team.
+If you didn't want to be added to {{ teamName }}, you can log in to your account and leave the team.

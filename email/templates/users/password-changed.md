@@ -1,6 +1,6 @@
 # Password changed
 
-Hi {{name}},
+Hi {{ userName }},
 
 Your password has been changed.
 

@@ -7,7 +7,7 @@ import {AwsPinpointService} from './aws.pinpoint.service';
 import {promises as fs} from 'fs';
 import {join} from 'path';
 import {render} from 'mustache';
-import marked from 'marked';
+import {marked} from 'marked';
 import {EmailParams, EmailParamsWithTemplate} from './email.interface';
 
 @Injectable()
@@ -28,14 +28,22 @@ export class EmailService {
     )!;
   }
 
+  async send(params: EmailParams): Promise<void> {
+    await this.sendEmail(params);
+  }
+
   async sendWithTemplate(params: EmailParamsWithTemplate): Promise<void> {
     const emailParams: EmailParams = {toAddress: params.toAddress};
 
     // [step 1] Get template
-    let templateMarkdown = await this.readTemplate(params.template);
+    const templatePath = Object.keys(params.template)[0];
+    let templateMarkdown = await this.readTemplate(templatePath);
 
     // [step 2] Replace information in template
-    let contentMarkdown = render(templateMarkdown, params.data || {});
+    let contentMarkdown = render(
+      templateMarkdown,
+      params.template[templatePath] || {}
+    );
     if (contentMarkdown.startsWith('#')) {
       const subject = contentMarkdown.split('\n', 1)[0].replace('#', '').trim();
       if (subject) {
@@ -53,14 +61,10 @@ export class EmailService {
     const contentHtml = marked.parse(contentMarkdown);
     emailParams.html = render(layoutHtml, {content: contentHtml});
 
-    await this.send(emailParams);
+    await this.sendEmail(emailParams);
   }
 
-  async sendWithoutTemplate(params: EmailParams): Promise<void> {
-    await this.send(params);
-  }
-
-  private async send(params: EmailParams): Promise<EmailNotification> {
+  private async sendEmail(params: EmailParams): Promise<EmailNotification> {
     // [step 1] Send AWS Pinpoint message.
     const output: SendMessagesCommandOutput =
       await this.pinpointService.sendEmail({

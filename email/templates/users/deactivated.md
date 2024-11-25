@@ -1,6 +1,6 @@
 # Account deactivated
 
-Hi {{name}},
+Hi {{ userName }},
 
 Your account has been deactivated.
 

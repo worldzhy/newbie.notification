@@ -1,6 +1,6 @@
 # Login with a backup code
 
-Hi {{name}},
+Hi {{ userName }},
 
 Someone (hopefully you) logged in to your account from **{{ locationName }}**, and they used a backup code when asked for a two-factor authentication code.
 

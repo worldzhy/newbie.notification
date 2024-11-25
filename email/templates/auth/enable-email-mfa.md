@@ -1,6 +1,6 @@
 # Enable multi-factor authentication with {{ code }}
 
-Hi {{name}},
+Hi {{ userName }},
 
 Enter the following code to enable email-based multi-factor authentication: **{{ code }}**.
 
