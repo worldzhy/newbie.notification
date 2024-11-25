@@ -6,6 +6,7 @@ enum EmailTemplate {
   AuthPasswordReset = 'auth/password-reset',
   AuthResendEmailVerification = 'auth/resend-email-verification',
   AuthUsedBackupCode = 'auth/used-backup-code',
+  AuthVerificationCode = 'auth/verification-code',
   TeamsInvitation = 'teams/invitation',
   UsersDeactivated = 'users/deactivated',
   UsersMergeRequest = 'users/merge-request',
@@ -56,6 +57,11 @@ export interface EmailParamsWithTemplate {
       userName: string;
       locationName: string;
       link: string;
+    };
+    [EmailTemplate.AuthVerificationCode]?: {
+      userName: string;
+      code: string;
+      codeValidMinutes: number;
     };
     [EmailTemplate.TeamsInvitation]?: {
       userName: string;
