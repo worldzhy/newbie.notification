@@ -41,7 +41,7 @@ export interface EmailParamsWithTemplate {
     [EmailTemplate.AuthLoginLink]?: {
       userName: string;
       link: string;
-      linkValidDays: number;
+      linkValidMinutes: number;
     };
     [EmailTemplate.AuthPasswordReset]?: {
       userName: string;
