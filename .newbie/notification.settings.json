@@ -29,6 +29,14 @@
     "NOTIFICATION_SMS_AWS_PINPOINT_SENDER_ID":"" 
   },
   "dependencies": {
-    "@aws-sdk/client-pinpoint": "^3.609.0"
-  }
+    "@aws-sdk/client-pinpoint": "^3.609.0",
+    "marked": "^15.0.2",
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/mustache": "^4.2.5"
+  },
+  "assets": [
+    "microservices/notification/email/templates/"
+  ]
 }

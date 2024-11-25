@@ -32,13 +32,13 @@ export class AwsPinpointService {
     applicationId: string;
     fromAddress: string;
     body: {
-      email: string;
-      subject: string;
+      toAddress: string;
+      subject?: string;
       plainText?: string;
       html?: string;
     };
   }) {
-    const emails = [params.body.email];
+    const emails = [params.body.toAddress];
     const subject = params.body.subject;
     const plainText = params.body.plainText;
     const html = params.body.html;
