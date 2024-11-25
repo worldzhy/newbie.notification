@@ -7,8 +7,6 @@
 // * NotificationSimpleEmailRecord                                 //
 // * NotificationAdvancedEmailChannel                              //
 // * NotificationAdvancedEmailRecord                               //
-// * NotificationWebhookChannel                                    //
-// * NotificationWebhookRecord                                     //
 // * ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ ⌄ //
 
 model NotificationSimpleEmailChannel {
@@ -50,34 +48,6 @@ model NotificationAdvancedEmailRecord {
   createdAt DateTime                         @default(now())
   updatedAt DateTime                         @updatedAt
   channel   NotificationAdvancedEmailChannel @relation(fields: [channelId], references: [id])
-  channelId Int
-
-  @@schema("microservice/notification")
-}
-
-model NotificationWebhookChannel {
-  id          Int                         @id @default(autoincrement())
-  name        String
-  description String?
-  webhook     String
-  platform    String // lark, slack ...
-  createdAt   DateTime                    @default(now())
-  updatedAt   DateTime                    @updatedAt
-  deletedAt   DateTime?
-  records     NotificationWebhookRecord[]
-
-  @@unique([name, platform])
-  @@schema("microservice/notification")
-}
-
-model NotificationWebhookRecord {
-  id        Int                        @id @default(autoincrement())
-  request   Json
-  response  Json?
-  status    String // pending, succeeded, failed
-  createdAt DateTime                   @default(now())
-  updatedAt DateTime                   @updatedAt
-  channel   NotificationWebhookChannel @relation(fields: [channelId], references: [id])
   channelId Int
 
   @@schema("microservice/notification")
