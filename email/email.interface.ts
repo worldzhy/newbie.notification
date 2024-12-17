@@ -1,13 +1,13 @@
 enum EmailTemplate {
-  AuthApproveSubnet = 'auth/approve-subnet',
-  AuthEmailVerification = 'auth/email-verification',
+  AuthVerifyEmail = 'auth/verify-email',
+  AuthVerifyEmailResend = 'auth/verify-email-resend',
+  AuthVerifySubnet = 'auth/verify-subnet',
   AuthEnableEmailMfa = 'auth/enable-email-mfa',
   AuthLoginLink = 'auth/login-link',
   AuthPasswordReset = 'auth/password-reset',
-  AuthResendEmailVerification = 'auth/resend-email-verification',
   AuthUsedBackupCode = 'auth/used-backup-code',
   AuthVerificationCode = 'auth/verification-code',
-  TeamsInvitation = 'teams/invitation',
+  OrganizationsInvitation = 'organizations/invitation',
   UsersDeactivated = 'users/deactivated',
   UsersMergeRequest = 'users/merge-request',
   UsersPasswordChanged = 'users/password-changed',
@@ -23,16 +23,21 @@ export interface EmailParams {
 export interface EmailParamsWithTemplate {
   toAddress: string;
   template: {
-    [EmailTemplate.AuthApproveSubnet]?: {
+    [EmailTemplate.AuthVerifyEmail]?: {
+      userName: string;
+      link: string;
+      linkValidDays: number;
+    };
+    [EmailTemplate.AuthVerifyEmailResend]?: {
+      userName: string;
+      link: string;
+      linkValidDays: number;
+    };
+    [EmailTemplate.AuthVerifySubnet]?: {
       userName: string;
       locationName: string;
       link: string;
       linkValidMinutes: number;
-    };
-    [EmailTemplate.AuthEmailVerification]?: {
-      userName: string;
-      link: string;
-      linkValidDays: number;
     };
     [EmailTemplate.AuthEnableEmailMfa]?: {
       userName: string;
@@ -48,11 +53,7 @@ export interface EmailParamsWithTemplate {
       link: string;
       linkValidMinutes: number;
     };
-    [EmailTemplate.AuthResendEmailVerification]?: {
-      userName: string;
-      link: string;
-      linkValidDays: number;
-    };
+
     [EmailTemplate.AuthUsedBackupCode]?: {
       userName: string;
       locationName: string;
@@ -63,9 +64,8 @@ export interface EmailParamsWithTemplate {
       code: string;
       codeValidMinutes: number;
     };
-    [EmailTemplate.TeamsInvitation]?: {
-      userName: string;
-      teamName: string;
+    [EmailTemplate.OrganizationsInvitation]?: {
+      organizationName: string;
       link: string;
     };
     [EmailTemplate.UsersDeactivated]?: {
